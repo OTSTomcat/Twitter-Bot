@@ -25,7 +25,7 @@ class TwitterBot(irc.IRCClient):
 
 			if(long(self.last_tweet_id) < long(last_tweet['id'])):		
 				self.last_tweet_id = last_tweet['id']
-				self.say('testchannel', last_tweet['text'], length=None)
+				self.say('day9tv', last_tweet['text'], length=None)
 		else:
 			self.msg('OTSTomcat','Rate limit reached!')
 
@@ -55,7 +55,7 @@ def get_rate_status():
 	return result
 if __name__ == '__main__':
 
-	f = TwitterBotFactory('testchannel')
+	f = TwitterBotFactory('day9tv')
 	reactor.connectTCP("irc.quakenet.org", 6667, f)
 	reactor.run()
 		

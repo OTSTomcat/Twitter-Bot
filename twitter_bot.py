@@ -63,7 +63,7 @@ if __name__ == '__main__':
 
     log.startLogging(sys.stdout)
 
-    channels = ['day9tv', 'mlg', 'randomtestchan']
+    channels = ['day9tv', 'mlg', 'starcraft2.no']
     f = TwitterBotFactory(channels)
 
     log.msg('Connecting...')

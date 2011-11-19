@@ -1,16 +1,20 @@
+import sys
 from twisted.words.protocols import irc
 from twisted.internet import reactor, protocol, task
+from twisted.python import log
 
 import simplejson, urllib
 
 class TwitterBot(irc.IRCClient):
     got_Pong = True
     nickname = 'MLGSC2Scores'
+    password = 'kD3pbGTiPg'
     last_tweet_id ='0'
 
     def signedOn(self):
-        for channel in self.factory.channels:
-            self.join(channel)
+        for chan in self.factory.channel:
+            log.msg('Joining channel ' + chan)
+            self.join(chan)
 
         self.lc = task.LoopingCall(self.update_twitter)
         self.lc.start(24, False)
@@ -24,15 +28,17 @@ class TwitterBot(irc.IRCClient):
             if long(self.last_tweet_id) < long(last_tweet['id']):
                 self.last_tweet_id = last_tweet['id']
             for channel in channels:
+                log.msg('Latest tweet: ' + last_tweet['text'])
                 self.say(channel, last_tweet['text'])
         else:
+            log.msg('Rate limit reached!')
             self.msg('OTSTomcat','Rate limit reached!')
 
 class TwitterBotFactory(protocol.ClientFactory):
     protocol = TwitterBot
 
     def __init__(self, channels):
-        self.channels = channels
+        self.channel = channels
     
     def clientConnectionLost(self, connector, reason):
         connector.connect()
@@ -54,8 +60,11 @@ def get_rate_status():
     return result
 if __name__ == '__main__':
 
+    log.startLogging(sys.stdout)
+
     channels = ['day9tv', 'mlg', 'randomtestchan']
     f = TwitterBotFactory(channels)
 
+    log.msg('Connecting...')
     reactor.connectTCP("irc.quakenet.org", 6667, f)
     reactor.run()

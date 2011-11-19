@@ -27,9 +27,9 @@ class TwitterBot(irc.IRCClient):
 
             if long(self.last_tweet_id) < long(last_tweet['id']):
                 self.last_tweet_id = last_tweet['id']
-            for channel in channels:
-                log.msg('Latest tweet: ' + last_tweet['text'])
-                self.say(channel, last_tweet['text'])
+                for channel in channels:
+                    log.msg('Latest tweet: ' + last_tweet['text'])
+                    self.say(channel, last_tweet['text'])
         else:
             log.msg('Rate limit reached!')
             self.msg('OTSTomcat','Rate limit reached!')

@@ -1,1 +1,11 @@
 Simple IRC bot that queries twitter for updates to the MLGSC2Scores account and posts them in a few channels.
+
+TO USE:
+
+You must have simplejson installed.
+
+Rename the config file to remove the .example.  Enter in your bot's information into the config file.  Make sure the config file is in the same directory as the bot.
+
+Run with: python twitter_bot.py
+
+You can have the bot join and leave channels with the commands '!addchannel' and '!leavechannel'.

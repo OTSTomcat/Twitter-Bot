@@ -1,0 +1,7 @@
+[twitter_bot]
+trigger = !
+twitter_account = NAME_OF_TWITTER_ACCOUNT_TO_FOLLOW
+nickname = BOTNAME
+password = BOT_PASSWORD
+owner = OWNER_NAME
+channels = CHANNEL1, CHANNEL2, CHANNEL3

@@ -1,4 +1,4 @@
-Simple IRC bot that queries twitter for updates to the MLGSC2Scores account and posts them in a few channels.
+Simple IRC bot that queries Twitter for updates to an account and posts them into one or more channels.
 
 TO USE:
 

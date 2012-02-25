@@ -76,14 +76,20 @@ class TwitterBotFactory(protocol.ClientFactory):
 
 def get_last_tweet(user):
     url = "https://twitter.com/statuses/user_timeline.json?id=" + user
-    result = simplejson.load(urllib.urlopen(url))
-    
+    try:
+        result = simplejson.load(urllib.urlopen(url))
+    except:
+        log.msg("Could not get last tweet.  Will retry.")    
+        return get_last_tweet(user)
     return result[0]
 
 def get_rate_status():
     url = "http://api.twitter.com/1/account/rate_limit_status.json"
-    result = simplejson.load(urllib.urlopen(url))
-
+    try:
+        result = simplejson.load(urllib.urlopen(url))
+    except:
+        log.msg("Could not get rate limit.  Will retry.")
+        return get_rate_status()
     return result
 
 if __name__ == '__main__':

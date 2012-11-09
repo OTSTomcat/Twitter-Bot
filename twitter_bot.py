@@ -3,6 +3,8 @@ import sys
 from twisted.words.protocols import irc
 from twisted.internet import reactor, protocol, threads
 from twisted.python import log
+from oauth import oauth
+from twittytwister import twitter
 
 class TwitterBot(irc.IRCClient):
     got_Pong = True
@@ -16,10 +18,32 @@ class TwitterBot(irc.IRCClient):
         self.channels = config.get('twitter_bot', 'channels').split(', ')
         self.trigger = config.get('twitter_bot', 'trigger')
 
+	self.follow_id = config.get('twitter_bot', 'follow_id')
+
+	consumer_key = config.get('oauth', 'consumer_key')
+	consumer_secret = config.get('oauth', 'consumer_secret')
+	access_token_key = config.get('oauth', 'access_token_key')
+	access_token_secret = config.get('oauth', 'access_token_secret')
+	
+	self.consumer = oauth.OAuthConsumer(consumer_key, consumer_secret)
+	self.token = oauth.OAuthToken(access_token_key, access_token_secret)
+
+    def say_tweet(self, tweet):
+	for chan in self.channels:
+		self.say(chan, tweet)
+	
     def signedOn(self):
         for chan in self.channels:
             log.msg('Joining channel ' + chan)
             self.join(chan)
+
+	self.start_monitor(self.follow_id)
+
+    def start_monitor(self, twitter_user_id):
+	feed = twitter.TwitterFeed(consumer=self.consumer, token=self.token)
+	monitor = twitter.TwitterMonitor(feed.filter, lambda entry: self.say_tweet(entry.text.encode('utf-8')), {'follow': twitter_user_id})
+
+	monitor.startService()
 
     def privmsg(self, user, channel, msg):
         user = user.split('!', 1)[0]

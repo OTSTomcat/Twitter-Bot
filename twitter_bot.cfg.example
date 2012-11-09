@@ -1,10 +1,18 @@
 [twitter_bot]
 trigger = !
-nickname = NICKNAME
-password = PASSWORD
-owner = OWNER_NICK
+nickname = BOT_NICKNAME 
+password = BOT_PASSWORD #Register with Q 
+owner =  OWNER_NICK #So you can issue commands
+follow_id = TWITTER_ID #The id of the twitter account, NOT THE SCREEN NAME!  This can be determined by visiting the site http://idfromuser.com and entering in the screen name. 
 
-irc_server = IRC_SERVER_ADDRESS
+irc_server = IRC_SERVER_HOSTNAME
 irc_server_port = IRC_SERVER_PORT
-twitter_account = TWITTER_ACCOUNT
-channels = CHANNEL1, CHANNEL2, CHANNEL3
+channels = #CHAN1, #CHAN2, #CHAN3 
+
+#This information can be obtained by logging into dev.twitter.com and navigating to https://dev.twitter.com/apps and creating a new application.
+
+[oauth]
+consumer_key = 
+consumer_secret = 
+access_token_key = 
+access_token_secret = 

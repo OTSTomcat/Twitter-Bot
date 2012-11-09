@@ -1,3 +1,6 @@
+Twitter-Bot v0.2.0
+------------------
+
 Simple IRC bot that queries Twitter for updates to an account and posts them into one or more channels.
 
 REQUIREMENTS:

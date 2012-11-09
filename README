@@ -1,11 +1,16 @@
 Simple IRC bot that queries Twitter for updates to an account and posts them into one or more channels.
 
-TO USE:
+REQUIREMENTS:
+twitty-twister - http://github.com/dustin/twitty-twister/ (run python setup.py install)
+twisted - (run easy_install twisted)
 
-You must have simplejson installed.
+TO USE:
 
 Rename the config file to remove the .example.  Enter in your bot's information into the config file.  Make sure the config file is in the same directory as the bot.
 
 Run with: python twitter_bot.py
 
 You can have the bot join and leave channels with the commands '!addchannel' and '!leavechannel'.
+
+TODO:
+- Convert screen names to ids (so you can specify screen name in config instead of having to find the id)
